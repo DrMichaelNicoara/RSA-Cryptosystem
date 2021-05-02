@@ -1,56 +1,66 @@
 #pragma once
+#include <iostream>
+#include <fstream>
+#include <string>
+#include "Functions.h"
+
 
 void DecryptMess()
 {
-    system("cls");
-    cout << "\n\n";
-    drawLine(80, '_');
-    cout << "\n\n\n\n\t\tDecrypt Your Message\n\n\n\n";
-    drawLine(80, '_');
+    Decryption_header();
 
-    char c = 'N';
-    cout << "\n\nDecryption Key : ";
-    if (d)
+
+    unsigned long long d, N;
+
+    // Read Encryption Key <d> from local file
+    std::ifstream inFile("DecryptionKey.dat", std::ios::in | std::ios::binary);
+    if (inFile)
     {
-        do {
-            cout << d << "\nN = " << N << "\nUse different key(Y/N) : ";
-            cin.ignore(1000, '\n');
-            c = getchar();
-            c = toupper(c);
-        } while (c != 'Y' && c != 'N');
+        unsigned long long tmp;
+        inFile.read(reinterpret_cast<char*>(&tmp), sizeof(unsigned long long));
+        d = tmp;
 
-        if (c == 'Y')
-        {
-            d = 0;
-            DecryptMess();
-        }
+        inFile.read(reinterpret_cast<char*>(&tmp), sizeof(unsigned long long));
+        N = tmp;
+
+        std::cout << "\n\nDecryption Key : (" << d << ", " << N << ")";
     }
     else
     {
-        cin >> d;
-        cout << "N = "; cin >> N;
+        std::cout << "\n\nThe file containing the Decryption Key could not be opened. Enter the Decryption Key manually.";
+        std::cout << "\n\nDecryption Key : (d, N)";
+        std::cout << "\nd = "; std::cin >> d;
+        std::cout << "\nN = "; std::cin >> N;
     }
+    inFile.close();
+    
 
-//    string message;
-    cout << "\n\nYour encrypted message : ";
-    if (c == 'N')
+    // Get Decryption Message from binary file
+    std::string message;
+    std::ifstream inFile2("EncryptedMessage.dat", std::ios::in | std::ios::binary);
+    
+    if (inFile2)
     {
-       // clipboard >> message;
-        cout << message;
+        inFile2.read(reinterpret_cast<char*>(&message), sizeof(inFile));
+        inFile2.close();
     }
     else
     {
-        cin.ignore(1000, '\n');
-        getline(cin, message);
+        std::cout << "\nThe file containing the Encrypted Message could not be opened.\n";
+        exit(1);
     }
 
+
+    // Decrypt Message
     for (int i = 0; i < message.size(); i++)
-        message[i] = (long long)pow((int)message[i], d) % N;
+    {
+        unsigned long long ch = (unsigned long long)pow((int)message[i] - 'A' + 1, d) % N;
+        message[i] = (char)(ch + 'A' - 1);
+    }
 
-    cout << "\n\nDecrypted message : " << message;
-   // clipboard << message;
-    //cout << "\nTEXT HAS BEEN AUTOMATICALLY COPIED TO CLIPBOARD.\n\n";
+
+    // Print Decrypted Message on screen
+    std::cout << "\n\nDecrypted message : " << message << std::endl << std::endl;
 
     system("pause");
-    menu();
 }

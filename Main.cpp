@@ -1,35 +1,53 @@
 #include <iostream>
-#include <windows.h>
 #include <ctime>
-#include <conio.h>
+#include <stdlib.h>
+#include <thread>
+#include <chrono>
 #include <fstream>
-#include <vector>
-#include <string>
-#include <cmath>
-using namespace std;
-string message;
 
-#include "Clipboard.h"
-CClipboardXX clipboard;
-ifstream file("PrimeNumbers.txt");
-
-
-#include "Functions.h"
-void GenerateKeys();
-void EncryptMess();
-void DecryptMess();
-#include "Menu.h"
 #include "KeyGenerator.h"
 #include "Encryption.h"
 #include "Decryption.h"
+#include "Functions.h"
+#include "Clipboard.h"
 
 int main()
-{
-	//intro();
-	//Sleep(5000);
-	
+{	
+    //intro();
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 	srand(time(0));
-	menu();
+
+	while (1)
+	{
+        Main_header();
+        
+
+        // Options
+        std::cout << "\n\n1).Generate encryption/decryption keys";
+        std::cout << "\n2).Encrypt message";
+        std::cout << "\n3).Decrypt message";
+        std::cout << "\n4).Exit";
+
+        // MENU
+        int opt;
+        do {
+            std::cout << "\n\nI want to go to option : ";
+            std::cin >> opt;
+        } while (opt != 1 && opt != 2 && opt != 3 && opt != 4);
+
+        switch (opt)
+        {
+        case 1: GenerateKeys();
+            break;
+        case 2: EncryptMess();
+            break;
+        case 3: DecryptMess();
+            break;
+        case 4: 
+            system("cls");
+            exit(0);
+        }
+	}
 
 	return 0;
 }

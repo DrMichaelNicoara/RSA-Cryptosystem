@@ -1,49 +1,47 @@
 #pragma once
+#include <iostream>
+#include <stdlib.h>
+#include <string>
+#include "Functions.h"
+
 
 void EncryptMess()
 {
-    beginning:
-    system("cls");
-    cout << "\n\n";
-    drawLine(80, '_');
-    cout << "\n\n\n\n\t\tEncrypt Your Message\n\n\n\n";
-    drawLine(80, '_');
+    Encryption_header;
 
-    cout << "\n\nEncryption Key : ";
-    if (e)
-    {
-        char c;
-        do {
-            cout << e << "\nN = " << N << "\nUse different key(Y/N) : ";
-            cin.ignore();
-            c = getchar();
-            c = toupper(c);
-        } while (c != 'Y' && c != 'N');
 
-        if (c == 'Y')
-        {
-            e = 0;
-            goto beginning;
-        }
-    }
-    else
-    {
-        cin >> e;
-        cout << "N = "; cin >> N;
-    }
+    // Take Encryption Key <e> from clipboard
+    std::cout << "\n\nEncryption Key : ";
+    std::cin.ignore(100, '\n');
+    unsigned long long e, N;
+    scanf_s("(%llu, %llu)", &e, &N);
 
-    //string message;
-    cout << "\n\nYour message : ";
-    cin.ignore(1000, '\n');
-    getline(cin, message);
 
+    // Get plain message from user
+    std::cout << "\n\nYour message : ";
+    std::cin.ignore(1000, '\n');
+
+    std::string message;
+    getline(std::cin, message);
+
+
+    // Encrypt message
     for (int i = 0; i < message.size(); i++)
-        message[i] = (long long)pow((int)message[i], e) % N;
+    {
+        unsigned long long ch = (unsigned long long)pow((int)message[i] - 'A' + 1, e) % N;
+        message[i] = (char)(ch + 'A' - 1);
+    }
 
-    cout << "\n\nEncrypted message : " << message;
-    //clipboard << message;
-    //cout << "\nTEXT HAS BEEN AUTOMATICALLY COPIED TO CLIPBOARD.\n\n";
+
+    // Save encrypted message to binary file
+    std::ofstream outFile("EncryptedMessage.dat", std::ios::out | std::ios::binary | std::ios::trunc);
+
+    if (outFile)
+    {
+        outFile.write(reinterpret_cast<const char*>(&message), sizeof(message));
+        std::cout << "\n\nYour encrypted message has been saved to file. Send this file to a friend.\n\n";
+    }
+    outFile.close();
 
     system("pause");
-    menu();
 }

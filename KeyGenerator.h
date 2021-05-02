@@ -1,71 +1,93 @@
 #pragma once
+#include "Functions.h"
+#include "Clipboard.h"
+#include <fstream>
+#include <string>
+#define NUMBER_OF_PRIMES 70435
 
 void GenerateKeys()
 {
-    beginning:
-    system("cls");
-    cout << "\n\n";
-    drawLine(80, '_');
-    cout << "\n\n\n\n\tGenerate Encryption/Decryption Key\n\n\n\n";
-    drawLine(80, '_');
-    /*
-    //Choose 2 prime numbers in the range (10^6 , 2*10^6) from file
-    long long prime1, prime2;
-    int nth;
-    nth = rand() % 70434 + 1;
-    file.open("PrimeNumbers.txt");
-    file.close(); //It fails to read from the file for prime1 otherwise [WHY ?]
-
-    file.open("PrimeNumbers.txt");
-    do {
-        file >> prime1;
-        nth--;
-    } while (nth > 0);
-    file.close();
-
-    nth = rand() % 70434 + 1;
-    file.open("PrimeNumbers.txt");
-    do {
-        file >> prime2;
-        nth--;
-    } while (nth > 0);
-    file.close();
-
-
-    N = prime1 * prime2;
-    phi = (prime1 - 1) * (prime2 - 1);
+    GenerateKeys_header();
     
-    //Encryption key
-    e = 3;
+
+    // Choose 2 random prime numbers in the range (10^6 , 2*10^6) from file
+    unsigned long long prime1, prime2;
+
+    int nth = rand() % (NUMBER_OF_PRIMES - 1) + 1; // (1, NUMBER_OF_PRIMES)
+    std::ifstream inFile("PrimeNumbers.txt", std::ios::in);
+    do
+    {
+        inFile >> prime1;
+        nth--;
+    } while (nth);
+
+    nth = rand() % (NUMBER_OF_PRIMES - 1) + 1; // (1, NUMBER_OF_PRIMES)
+    inFile.seekg(0, std::ios::beg); // Sends the cursor to the beggining of the file
+    do
+    {
+        inFile >> prime2;
+        nth--;
+    } while (nth);
+    inFile.close();
+
+    unsigned long long N = prime1 * prime2;
+    unsigned long long phi = (prime1 - 1) * (prime2 - 1);
+
+
+    /// Encryption Key <e>
+    /// Conditions :
+    /// 1 < <e> < phi
+    /// coprime(<e>, N) && coprime(<e>, phi) => <e> must be odd
+    
+    unsigned long long e = 3; // First possible value for <e> is 3
     while (!coprime(e, N) || !coprime(e, phi))
     {
         if (e < phi)
             e += 2;
-        else goto beginning;
+        else GenerateKeys(); // ERROR! Go back and redo everything
     }
-    cout << "\n\nThe encryption(public) key is : " << e;
 
-    //Decryption key
-    //From the keys that respect the formula, I will choose a random one.
-    short iterations = rand() % 10 + 1; //Between 1 and 10
-    d = phi/e + 1;
-    while (1)
+
+    /// Decryption Key <d>
+    /// Conditions :
+    /// <d>*<e> % phi = 1   <=>   d = if_integer(phi*i + 1) / <e>) , where i is a nenul natural number
+    /// We have to choose <d> such that the condition is met, but in order to increase the security,
+    /// we will choose a random value that meets the criteria
+
+    unsigned long long d;
+    nth = rand() % 6 + 5; // (5, 10)
+    for (int i = 1; nth; i++)
     {
-        d--;
-        if ((d * e) % phi == 1)
-            break;
+        double tmp = (double)(phi * i + 1) / e;
+        if (floor(tmp) == tmp) // if is_integer()
+        {
+            d = tmp;
+            nth--;
+        }
     }
-    //d += phi * iterations; //Just makes the private key bigger
-    cout << "\nThe decryption(private) key is : " << d;
-    */
+   
+    std::cout << "\n\nThe encryption(public) key is : (" << e << ", " << N << ")";
+    std::cout << "\nThe decryption(private) key is : (" << d << ", " << N << ")";
 
-    e = 2;
-    d = 7;
-    N = 14;
-    cout << "\n\nThe encryption(public) key is : (" << e << ", " << N << ")";
-    cout << "\nThe decryption(private) key is : (" << d << ", " << N << ")";
 
-    cout << "\n\n";
+    // Copy Encryption Key <e> to clipboard
+    std::string copy = "Encryption Key : (" + std::to_string(e) + ", " + std::to_string(N) + ")";
+    write_clipboard(copy.c_str());
+
+    std::cout << "\n\n\nEncryption Key has been automatically copied to clipboard";
+
+
+    // Save Decryption Key <d> to binary file
+    std::ofstream outFile("DecryptionKey.dat", std::ios::out | std::ios::binary | std::ios::trunc);
+    
+    if (outFile)
+    {
+        outFile.write(reinterpret_cast<const char*>(&d), sizeof(d));
+        outFile.write(reinterpret_cast<const char*>(&N), sizeof(N));
+        std::cout << "\nDecryption Key has been automatically saved locally. DO NOT SHARE THIS KEY!\n\n";
+    }
+    else std::cout << "\nDecryption Key couldn't been saved locally. Please remember it. DO NOT SHARE THIS KEY!\n\n";
+    outFile.close();
+
     system("pause");
-    menu();
 }
