@@ -1,6 +1,27 @@
 #pragma once
 #include <iostream>
 
+void drawLine(int n, char symbol)
+{
+    for (int i = 0; i < n; i++)
+        std::cout << symbol;
+    std::cout << "\n";
+}
+
+bool coprime(long long a, long long b)
+{
+    long long t;
+    while (b)
+    {
+        t = b;
+        b = a % t;
+        a = t;
+    }
+    if (a == 1)return true;
+    else return false;
+}
+
+
 void intro()
 {
     drawLine(60, '_');
@@ -48,22 +69,3 @@ void Decryption_header()
 }
 
 
-void drawLine(int n, char symbol)
-{
-    for (int i = 0; i < n; i++)
-        std::cout << symbol;
-    std::cout << "\n";
-}
-
-bool coprime(long long a, long long b)
-{
-    long long t;
-    while (b)
-    {
-        t = b;
-        b = a % t;
-        a = t;
-    }
-    if (a == 1)return true;
-    else return false;
-}

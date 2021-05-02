@@ -36,31 +36,31 @@ void DecryptMess()
     
 
     // Get Decryption Message from binary file
-    std::string message;
+    std::string plain_message;
     std::ifstream inFile2("EncryptedMessage.dat", std::ios::in | std::ios::binary);
     
     if (inFile2)
     {
-        inFile2.read(reinterpret_cast<char*>(&message), sizeof(inFile));
-        inFile2.close();
+        unsigned long long ch;
+
+        // Decrypt Message
+        // plain_message = pow(cipher_message, d) MOD N
+        for (int i = 0; i < sizeof(inFile2)/sizeof(unsigned long long); i++)
+        {
+            inFile2.read(reinterpret_cast<char*>(&ch), sizeof(ch));
+            plain_message[i] = (char) ((unsigned long long)pow(ch, d) % N);
+        }
     }
     else
     {
         std::cout << "\nThe file containing the Encrypted Message could not be opened.\n";
         exit(1);
     }
-
-
-    // Decrypt Message
-    for (int i = 0; i < message.size(); i++)
-    {
-        unsigned long long ch = (unsigned long long)pow((int)message[i] - 'A' + 1, d) % N;
-        message[i] = (char)(ch + 'A' - 1);
-    }
+    inFile2.close();
 
 
     // Print Decrypted Message on screen
-    std::cout << "\n\nDecrypted message : " << message << std::endl << std::endl;
+    std::cout << "\n\nDecrypted message : " << plain_message << std::endl << std::endl;
 
     system("pause");
 }

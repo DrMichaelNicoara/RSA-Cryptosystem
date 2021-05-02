@@ -7,12 +7,12 @@
 
 void EncryptMess()
 {
-    Encryption_header;
+    Encryption_header();
 
 
     // Take Encryption Key <e> from clipboard
     std::cout << "\n\nEncryption Key : ";
-    std::cin.ignore(100, '\n');
+    std::cin.ignore(1000, '\n');
     unsigned long long e, N;
     scanf_s("(%llu, %llu)", &e, &N);
 
@@ -21,27 +21,25 @@ void EncryptMess()
     std::cout << "\n\nYour message : ";
     std::cin.ignore(1000, '\n');
 
-    std::string message;
-    getline(std::cin, message);
-
-
-    // Encrypt message
-    for (int i = 0; i < message.size(); i++)
-    {
-        unsigned long long ch = (unsigned long long)pow((int)message[i] - 'A' + 1, e) % N;
-        message[i] = (char)(ch + 'A' - 1);
-    }
+    std::string plain_message;
+    getline(std::cin, plain_message);
 
 
     // Save encrypted message to binary file
     std::ofstream outFile("EncryptedMessage.dat", std::ios::out | std::ios::binary | std::ios::trunc);
-
     if (outFile)
     {
-        outFile.write(reinterpret_cast<const char*>(&message), sizeof(message));
-        std::cout << "\n\nYour encrypted message has been saved to file. Send this file to a friend.\n\n";
+        // Encrypt message
+        // ciphier_message = pow(plain_message, e) MOD N
+        for (int i = 0; i < plain_message.size(); i++)
+        {
+            unsigned long long ch = (unsigned long long)pow((int)plain_message[i], e) % N;
+            outFile.write(reinterpret_cast<const char*>(&ch), sizeof(ch));
+        }
     }
     outFile.close();
+
+    std::cout << "\n\nYour encrypted message has been saved to file. Send this file to a friend.\n\n";
 
     system("pause");
 }

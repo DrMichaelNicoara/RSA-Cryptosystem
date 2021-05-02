@@ -13,8 +13,8 @@
 
 int main()
 {	
-    //intro();
-    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    intro();
+    //std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 	srand(time(0));
 
 	while (1)
@@ -45,6 +45,7 @@ int main()
             break;
         case 4: 
             system("cls");
+            std::cout << "Program has been canceled.\n";
             exit(0);
         }
 	}
