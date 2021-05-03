@@ -1,6 +1,6 @@
 <p align = "center">
 <img src = "Logo.png"> <br>
-<a href="#steps">Steps</a> • <a href="#explanation">Explanation</a> • <a href="#viability">Viability</a> • <a href="#practical-implementation">Practical Implementation</a> • <a href="#lockencryption">Encryption</a> • <a href="#lockdecryption">Decryption</a> 
+<a href="#steps">Steps</a> • <a href="#explanation">Explanation</a> • <a href="#viability">Viability</a> • <a href="#practical-implementation">Practical Implementation</a> • <a href="#lockencryption">Encryption</a> • <a href="#unlockdecryption">Decryption</a> 
 </p>
 
 ---
