@@ -24,7 +24,7 @@ int main()
         
 
         // Options
-        std::cout << "\n\n1).Generate encryption/decryption keys";
+        std::cout << "\n\n1).Generate Encryption/Decryption Keys";
         std::cout << "\n2).Encrypt message";
         std::cout << "\n3).Decrypt message";
         std::cout << "\n4).Exit";
