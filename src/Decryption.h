@@ -16,12 +16,8 @@ void DecryptMess()
     std::ifstream inFile("DecryptionKey.dat", std::ios::in | std::ios::binary);
     if (inFile)
     {
-        unsigned long long tmp;
-        inFile.read(reinterpret_cast<char*>(&tmp), sizeof(unsigned long long));
-        d = tmp;
-
-        inFile.read(reinterpret_cast<char*>(&tmp), sizeof(unsigned long long));
-        N = tmp;
+        inFile.read(reinterpret_cast<char*>(&d), sizeof(unsigned long long));
+        inFile.read(reinterpret_cast<char*>(&N), sizeof(unsigned long long));
 
         std::cout << "\n\nDecryption Key : (" << d << ", " << N << ")";
     }
@@ -35,8 +31,15 @@ void DecryptMess()
     inFile.close();
     
 
-    // Get Decryption Message from binary file
-    std::string plain_message;
+    // Get Encrypted Message size
+    unsigned long long file_size;
+    std::ifstream File("EncryptedMessage.dat", std::ios::in | std::ios::binary);
+    File.seekg(0, std::ios::end);
+    file_size = File.tellg();
+    File.close();
+
+    // Get Encrypted Message from binary file
+    std::string message;
     std::ifstream inFile2("EncryptedMessage.dat", std::ios::in | std::ios::binary);
     
     if (inFile2)
@@ -45,10 +48,10 @@ void DecryptMess()
 
         // Decrypt Message
         // plain_message = pow(cipher_message, d) MOD N
-        for (int i = 0; i < sizeof(inFile2)/sizeof(unsigned long long); i++)
+        for (int i = 0; i < file_size / sizeof(ch); i++)
         {
             inFile2.read(reinterpret_cast<char*>(&ch), sizeof(ch));
-            plain_message[i] = (char) ((unsigned long long)pow(ch, d) % N);
+            message.resize(message.size() + 1, (char)big_number_mod(ch, d, N));
         }
     }
     else
@@ -60,7 +63,7 @@ void DecryptMess()
 
 
     // Print Decrypted Message on screen
-    std::cout << "\n\nDecrypted message : " << plain_message << std::endl << std::endl;
+    std::cout << "\n\nDecrypted message : " << message << std::endl << std::endl;
 
     system("pause");
 }

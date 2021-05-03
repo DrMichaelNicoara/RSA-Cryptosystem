@@ -11,10 +11,11 @@
 #include "Functions.h"
 #include "Clipboard.h"
 
+
 int main()
 {	
     intro();
-    //std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 	srand(time(0));
 
 	while (1)
@@ -27,6 +28,7 @@ int main()
         std::cout << "\n2).Encrypt message";
         std::cout << "\n3).Decrypt message";
         std::cout << "\n4).Exit";
+
 
         // MENU
         int opt;

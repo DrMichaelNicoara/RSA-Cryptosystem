@@ -21,6 +21,17 @@ bool coprime(long long a, long long b)
     else return false;
 }
 
+unsigned long long big_number_mod(unsigned long long x, unsigned long long y, unsigned long long N)
+{
+    // The number x^y is too big to calculate, so we take the modulus of N multiple times along the way
+    unsigned long long result = 1;
+    for (int i = 0; i < y; i++)
+    {
+        result *= x;
+        result %= N;
+    }
+    return result;
+}
 
 void intro()
 {
@@ -34,10 +45,18 @@ void Main_header()
     system("cls");
     std::cout << "\n\n";
     drawLine(80, '_');
-    std::cout << "\n\t\t\t\tTutorial\n\n";
-    std::cout << "1).In order to encrypt/decrypt your message you will need a key that will be generated in the option 1\n";
-    std::cout << "2).Take that key and go to option 2. Here you can type your message and encrypt it with the public key\n";
-    std::cout << "3).Then you can copy the encrypted message and go to option 3 were you can decrypt it\n";
+    std::cout << "\n\t\t\t\tInstructions\n\n";
+    std::cout << "SEND MESSAGE TO FRIEND\n";
+    std::cout << "1).Get Encryption Key from friend and copy only the parentheses : (e, N)\n";
+    std::cout << "2).Choose option 2, press CTRL+V to paste the Encryption Key and type in your message\n";
+    std::cout << "3).A file has been created next to your executable. Send it to your friend\n";
+
+    std::cout << "\nREAD FRIEND'S MESSAGE\n";
+    std::cout << "1).Download friend's EncryptedMessage FILE and PLACE IT NEXT TO YOUR EXECUTABLE\n";
+    std::cout << "2).Choose option 3. The Decryption Key will be copied from your DecryptionKey FILE and the decrypted message will appear\n";
+
+    std::cout << "\nTIP : If you accidentally create a new Encryption/Decryption Key, you need to send the new Encryption Key to your friend\n";
+    std::cout << "\nDO NOT CHANGE FILE NAMES!\n";
     drawLine(80, '_');
 }
 
@@ -64,7 +83,7 @@ void Decryption_header()
     system("cls");
     std::cout << "\n\n";
     drawLine(80, '_');
-    std::cout << "\n\n\n\n\t\tDecrypt Your Message\n\n\n\n";
+    std::cout << "\n\n\n\n\t\tDecrypt Friend's Message\n\n\n\n";
     drawLine(80, '_');
 }
 

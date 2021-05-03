@@ -18,11 +18,10 @@ void EncryptMess()
 
 
     // Get plain message from user
-    std::cout << "\n\nYour message : ";
     std::cin.ignore(1000, '\n');
-
-    std::string plain_message;
-    getline(std::cin, plain_message);
+    std::cout << "\n\nYour message : ";
+    std::string message;
+    getline(std::cin, message);
 
 
     // Save encrypted message to binary file
@@ -31,15 +30,16 @@ void EncryptMess()
     {
         // Encrypt message
         // ciphier_message = pow(plain_message, e) MOD N
-        for (int i = 0; i < plain_message.size(); i++)
+        for (int i = 0; i < message.size(); i++)
         {
-            unsigned long long ch = (unsigned long long)pow((int)plain_message[i], e) % N;
+            unsigned long long ch = big_number_mod(message[i], e, N);
             outFile.write(reinterpret_cast<const char*>(&ch), sizeof(ch));
         }
     }
     outFile.close();
 
-    std::cout << "\n\nYour encrypted message has been saved to file. Send this file to a friend.\n\n";
+
+    std::cout << "\n\nYour encrypted message has been saved to file. Send this file to your friend.\n\n";
 
     system("pause");
 }

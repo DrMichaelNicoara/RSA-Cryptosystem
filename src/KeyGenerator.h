@@ -3,14 +3,14 @@
 #include "Clipboard.h"
 #include <fstream>
 #include <string>
-#define NUMBER_OF_PRIMES 70435
+#define NUMBER_OF_PRIMES 143  // In the PrimeNumbers.txt
 
 void GenerateKeys()
 {
     GenerateKeys_header();
     
 
-    // Choose 2 random prime numbers in the range (10^6 , 2*10^6) from file
+    // Choose 2 random prime numbers in the range (100, 1000) from file
     unsigned long long prime1, prime2;
 
     int nth = rand() % (NUMBER_OF_PRIMES - 1) + 1; // (1, NUMBER_OF_PRIMES)
@@ -50,19 +50,16 @@ void GenerateKeys()
 
     /// Decryption Key <d>
     /// Conditions :
-    /// <d>*<e> % phi = 1   <=>   d = if_integer(phi*i + 1) / <e>) , where i is a nenul natural number
-    /// We have to choose <d> such that the condition is met, but in order to increase the security,
-    /// we will choose a random value that meets the criteria
+    /// <d>*<e> % phi = 1   <=>   d = if_integer( (phi*i + 1)/<e> ) , where i is a nenul natural number
 
     unsigned long long d;
-    nth = rand() % 6 + 5; // (5, 10)
-    for (int i = 1; nth; i++)
+    for (int i = 1; ; i++)
     {
         double tmp = (double)(phi * i + 1) / e;
         if (floor(tmp) == tmp) // if is_integer()
         {
             d = tmp;
-            nth--;
+            break;
         }
     }
    
