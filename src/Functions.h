@@ -52,7 +52,7 @@ void Main_header()
     std::cout << "3).A file has been created next to your executable. Send it to your friend\n";
 
     std::cout << "\nREAD FRIEND'S MESSAGE\n";
-    std::cout << "1).Choose option 1 and create Encryption/Decryption Key. The Encryption Key was copied to clipboard. Send it to your friend.";
+    std::cout << "1).Choose option 1 and create Encryption/Decryption Key. The Encryption Key was copied to clipboard. Send it to your friend.\n";
     std::cout << "2).Download friend's EncryptedMessage FILE and PLACE IT NEXT TO YOUR EXECUTABLE\n";
     std::cout << "3).Choose option 3. The Decryption Key will be copied from your DecryptionKey FILE and the decrypted message will appear\n";
 
