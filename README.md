@@ -1,5 +1,5 @@
 <p align = "center">
-<img src = "Images/Logo.png"> <br>
+<img src = "Logo.png"> <br>
 <a href="#steps">Steps</a> • <a href="#explanation">Explanation</a> • <a href="#viability">Viability</a> • <a href="#practical-implementation">Practical Implementation</a> • <a href="#lockencryption">Encryption</a> • <a href="#unlockdecryption">Decryption</a>  
 </p>
 
@@ -77,24 +77,3 @@ Summary addon for encryption/decryption: (22/06/19)
 |---|---|
 
 -------
-Setting up SSH using RSA keys for Github: (03/08/19) <br>
-
-For SSH authentication, it is rather typical that the users arrange the key pair themselves. Using the SSH protocol, one can connect and authenticate to remote servers and services, and with the SSH keys, one can connect to GitHub without supplying the username or password at each visit - which is a convenience indeed.
-
-For setting up SSH locally within your system using RSA keys, follow along: <br>
-- First check if files '(/.ssh/)id_rsa' and '(/.ssh/)id_rsa.pub' exist in your system.
-If not, create such public/private keys by opening a terminal and typing:
-```
-$ ssh-keygen -t rsa -C "your_email@example.com"
-```
-- Next, copy the public key (contents of the freshly created 'id_rsa.pub') into your clipboard. To follow on a Mac, type:
-```
-$ pbcopy < ~/.ssh/id_rsa.pub
-```
-- Paste the obtained SSH public key into a [new slot for SSH keys in github](https://github.com/settings/ssh/new) via the settings tab, accessible via your account. (i.e. click “SSH and GPG Keys” from the list of options towards the left of the settings tab, click “Add SSH Key” towards the top right, add a label and paste the public key into the text box) 
-
-- Type the following in your terminal session to test it:
-```
-$ ssh -T git@github.com
-```
-If 'You've successfully authenticated' is included in the follow-up message, you're good to go!
