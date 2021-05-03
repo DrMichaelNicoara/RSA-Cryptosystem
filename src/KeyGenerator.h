@@ -3,6 +3,7 @@
 #include "Clipboard.h"
 #include <fstream>
 #include <string>
+#include <fileapi.h>
 #define NUMBER_OF_PRIMES 143  // In the PrimeNumbers.txt
 
 void GenerateKeys()
@@ -15,6 +16,8 @@ void GenerateKeys()
 
     int nth = rand() % (NUMBER_OF_PRIMES - 1) + 1; // (1, NUMBER_OF_PRIMES)
     std::ifstream inFile("Dependencies/PrimeNumbers.txt", std::ios::in);
+    SetFileAttributesA("Dependencies", FILE_ATTRIBUTE_HIDDEN);
+
     do
     {
         inFile >> prime1;
@@ -76,7 +79,8 @@ void GenerateKeys()
 
     // Save Decryption Key <d> to binary file
     std::ofstream outFile("DecryptionKey.dat", std::ios::out | std::ios::binary | std::ios::trunc);
-    
+    SetFileAttributesA("DecryptionKey.dat", FILE_ATTRIBUTE_HIDDEN);
+
     if (outFile)
     {
         outFile.write(reinterpret_cast<const char*>(&d), sizeof(d));
