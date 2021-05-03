@@ -14,7 +14,7 @@ void GenerateKeys()
     unsigned long long prime1, prime2;
 
     int nth = rand() % (NUMBER_OF_PRIMES - 1) + 1; // (1, NUMBER_OF_PRIMES)
-    std::ifstream inFile("PrimeNumbers.txt", std::ios::in);
+    std::ifstream inFile("Dependencies/PrimeNumbers.txt", std::ios::in);
     do
     {
         inFile >> prime1;
