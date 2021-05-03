@@ -78,6 +78,11 @@ Hence, the RSA algorithm is quite feasible in general, apart from its primary do
 
 Instructions
 -------
+- Options
+> 1).Generate Encryption/Decryption Keys<br>
+> 2).Encrypt message<br>
+> 3).Decrypt message<br>
+> 4).Exit<br>
 - SEND MESSAGE TO FRIEND
 > 1).Get Encryption Key from friend and copy only the parentheses : (e, N).<br>
 > 2).Choose option 2 (Encrypt Message), press CTRL+V to paste the Encryption Key and type in your message.<br>
