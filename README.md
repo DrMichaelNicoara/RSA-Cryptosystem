@@ -20,7 +20,7 @@ Steps
 
 - Choose a corresponding Private Key d such that it satisfies the equation or e\*d mod ϕ(N) = 1. 
 
-> d is the multiplicative inverse of e modϕ(n). <br>
+> d is the multiplicative inverse of e modϕ(N). <br>
 > The Public Key is (e, N) and the Private Key is (d, N). <br>
 > As e was chosen, e is much smaller than d => encrypting a message using RSA is much faster than decrypting it. 
 
