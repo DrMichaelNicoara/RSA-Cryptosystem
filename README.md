@@ -89,8 +89,9 @@ Instructions
 > 3).A file has been created next to your executable. Send it to your friend.<br>
 
 - READ FRIEND'S MESSAGE
-> 1).Download friend's "EncryptedMessage" FILE and PLACE IT NEXT TO YOUR EXECUTABLE.<br>
-> 2).Choose option 3 (Decrypt Message). The Decryption Key will be copied from your "DecryptionKey" FILE and the decrypted message will appear.<br>
+> 1).Choose option 1 (Generate Encryption/Decryption Keys) and create Encryption/Decryption Key. The Encryption Key was copied to clipboard. Send it to your friend."<br>
+> 2).Download friend's "EncryptedMessage" FILE and PLACE IT NEXT TO YOUR EXECUTABLE.<br>
+> 3).Choose option 3 (Decrypt Message). The Decryption Key will be copied from your "DecryptionKey" FILE and the decrypted message will appear.<br>
 
 - TIP : If you accidentally create a new Encryption/Decryption Key, you need to send the new Encryption Key to your friend.
 - DO NOT CHANGE FILE NAMES.
