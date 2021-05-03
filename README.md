@@ -1,6 +1,6 @@
 <p align = "center">
 <img src = "Logo.png"> <br>
-<a href="#steps">Steps</a> • <a href="#explanation">Explanation</a> • <a href="#viability">Viability</a> • <a href="#practical-implementation">Practical Implementation</a> • <a href="#lockencryption">Encryption</a> • <a href="#unlockdecryption">Decryption</a>  
+<a href="#steps">Steps</a> • <a href="#explanation">Explanation</a> • <a href="#viability">Viability</a> • <a href="#practical-implementation">Practical Implementation</a> • <a href="#lockencryption">Encryption</a> 
 </p>
 
 ---
@@ -12,45 +12,45 @@ Steps
 > Can be generated using a primality test. <br>
 > Fermat’s test can be used, although practically Miller Rabin’s test is more sought after.
 
-- Take their product as n i.e. n = p\*q, which is the *modulus* of both the keys.
+- Take their product as N i.e. N = p\*q, which is the *modulus* of both the keys.
 
-- Then calculate the **Euler’s totient** for the above, given by ϕ(n) = (p-1)\*(q-1). 
+- Then calculate the **Euler’s totient** for the above, given by ϕ(N) = (p-1)\*(q-1). 
 
-- Proceed by choosing a public key e such that e > 2 and coprime to the totient i.e., gcd(e, totient) must be equal to 1.
+- Proceed by choosing a Public Key <e> such that 1 < <e> < ϕ(N) and <e> is coprime with N and ϕ(N) => <e> must be odd.
 
-- Choose a corresponding private key d such that it satisfies the equation or e\*d mod ϕ(n) = 1. 
+- Choose a corresponding Private Key <d> such that it satisfies the equation or e\*d mod ϕ(N) = 1. 
 
 > d is the multiplicative inverse of e modϕ(n). <br>
-> Public key comprises of (e, n) and private key comprises of (d). <br>
-> As e is much smaller than d, encrypting a message using RSA is much faster than decrypting it. 
+> The Public Key is (e, N) and the Private Key is (d, N). <br>
+> As <e> was chosen, <e> is much smaller than <d> => encrypting a message using RSA is much faster than decrypting it. 
 
-- Ciphertext is calculated using the equation c = m<sup>e</sup>modn, where m is the message to be encrypted.
+- Ciphertext is calculated using the equation c = m<sup>e</sup> mod N, where m is the message to be encrypted.
 
-- With the help of c and d thus obtained, we can decrypt the message using m = c<sup>d</sup>modn.
+- With the help of c and <d> thus obtained, we can decrypt the message using m = c<sup>d</sup> mod N.
 
 Explanation
 -------
 
-The Euler’s totient φ(n) of a positive integer n greater than 1 is defined to be the number of positive integers less than n that are coprime (only positive divisor being 1 or the gcd between the two numbers being 1) to n. (φ(1) is defined to be 1) <br>
-When n is prime, ϕ(n) = n-1, as in the case of Fermat’s theorem.
-Plaintext and ciphertext are integers between 0 and n-1 for some n.
+The Euler’s totient φ(N) of a positive integer N greater than 1 is defined to be the number of positive integers less than N that are coprime with N. (φ(1) is defined to be 1) <br>
+When N is prime, ϕ(N) = N-1, as in the case of Fermat’s theorem.
+Plaintext and ciphertext are integers between 0 and N-1 for some N.
 
 - Encryption and decryption are of the following form, for some plaintext M and ciphertext C: <br>
-    - C = M<sup>e</sup>(mod n) 
-    - M = C<sup>d</sup>(mod n) = (M<sup>e</sup>)<sup>d</sup>(mod n) = M<sup>ed</sup>(mod n)
+    - C = M<sup>e</sup>(mod N) 
+    - M = C<sup>d</sup>(mod N) = (M<sup>e</sup>)<sup>d</sup>(mod N) = M<sup>ed</sup>(mod N)
 
-- Each communicating entity has one public-key (e, n) or private-key (d, n) pair, where both e and d are in fact the multiplicative inverse (modϕ(n)) of the other. 
+- Each communicating entity has one public-key (e, N) or private-key (d, N) pair, where both <e> and <d> are in fact the multiplicative inverse (modϕ(N)) of the other. 
 
-    - e and d are inverses (modϕ(n)), or ed ≡ 1 (modϕ(n))
-    - ed = 1 + kϕ(n), for some k.
-    - M<sup>ed</sup>(mod n) = M<sup>1 + kϕ(n)</sup>(mod n) = M<sup>1</sup> x (M <sup>ϕ(n)</sup>)<sup>k</sup>(mod ϕ(n)) = M<sup>1</sup> x 1<sup>k</sup>(mod n) = M. (Euler’s theorem)
+    - <e> and <d> are inverses (modϕ(N)), or ed ≡ 1 (modϕ(N))
+    - ed = 1 + kϕ(N), for some k.
+    - M<sup>ed</sup>(mod N) = M<sup>1 + kϕ(N)</sup>(mod N) = M<sup>1</sup> x (M <sup>ϕ(N)</sup>)<sup>k</sup>(mod ϕ(N)) = M<sup>1</sup> x 1<sup>k</sup>(mod N) = M. (Euler’s theorem)
 
-Therefore, to decrypt a ciphertext C = M<sup>ed</sup>(mod n), we only need to calculate C<sup>d</sup>(mod n), since we know C = M<sup>e</sup>(mod n) => C<sup>d</sup>(mod n) = M<sup>ed</sup>(mod n) => C<sup>d</sup>(mod n) = M. (with M<sup>ed</sup>(mod n) being M)
+Therefore, to decrypt a ciphertext C = M<sup>ed</sup>(mod N), we only need to calculate C<sup>d</sup>(mod N), since we know C = M<sup>e</sup>(mod N) => C<sup>d</sup>(mod N) = M<sup>ed</sup>(mod N) => C<sup>d</sup>(mod N) = M. (with M<sup>ed</sup>(mod N) being M)
 
 Viability
 -------
 
-The RSA cryptosystem is based on the theorem which implies that the inverse of the function a->a<sup>e</sup>modn (where e is the public encryption exponent) is the function b->b<sup>d</sup>modn, (where d is the private decryption exponent) which provides the difficulty of computing ϕ(n) without knowing the factorization of n. (and thus the difficulty of computing d arises in addition)
+The RSA cryptosystem is based on the theorem which implies that the inverse of the function a->a<sup>e</sup> mod N (where e is the public encryption exponent) is the function b->b<sup>d</sup>modn, (where d is the private decryption exponent) which provides the difficulty of computing ϕ(n) without knowing the factorization of n. (and thus the difficulty of computing d arises in addition)
 
 This can only be solved by factorizing n (since every number is essentially a product of primes) and only the owner of the private key knows the factorization (primes p and q whose product yields n). This ‘factoring problem’ is the security point, with greater chances of the encryption to be secure for large values of n, or for large primes considered. The fact that only n is publicly disclosed, along with the given difficulty to factor large numbers (it is computationally infeasible to factor a large value of n to get d) gives the guarantee that no one else knows the factorization and the encrypted message, thus making it viable.
 
