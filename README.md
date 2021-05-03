@@ -74,3 +74,18 @@ Hence, the RSA algorithm is quite feasible in general, apart from its primary do
 -------
 | Input: RSA private key (d, N), ciphertext c | Output: Plaintext m,  (Compute m = c<sup>d</sup>(mod N), return m) |
 |---|---|
+-------
+
+Instructions
+-------
+- SEND MESSAGE TO FRIEND
+> 1).Get Encryption Key from friend and copy only the parentheses : (e, N).
+> 2).Choose option 2 (Encrypt Message), press CTRL+V to paste the Encryption Key and type in your message.
+> 3).A file has been created next to your executable. Send it to your friend.
+
+- READ FRIEND'S MESSAGE
+> 1).Download friend's "EncryptedMessage" FILE and PLACE IT NEXT TO YOUR EXECUTABLE.
+> 2).Choose option 3 (Decrypt Message). The Decryption Key will be copied from your "DecryptionKey" FILE and the decrypted message will appear.
+
+- TIP : If you accidentally create a new Encryption/Decryption Key, you need to send the new Encryption Key to your friend.
+- DO NOT CHANGE FILE NAMES.
