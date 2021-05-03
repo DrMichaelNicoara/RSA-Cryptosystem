@@ -50,30 +50,27 @@ Therefore, to decrypt a ciphertext C = M<sup>ed</sup>(mod N), we only need to ca
 Viability
 -------
 
-The RSA cryptosystem is based on the theorem which implies that the inverse of the function a->a<sup>e</sup> mod N (where e is the public encryption exponent) is the function b->b<sup>d</sup>modn, (where d is the private decryption exponent) which provides the difficulty of computing ϕ(n) without knowing the factorization of n. (and thus the difficulty of computing d arises in addition)
+The RSA cryptosystem is based on the theorem which implies that the inverse of the function a->a<sup>e</sup> mod N (where <e> is the Public Encryption exponent) is the function b->b<sup>d</sup> mod N, (where <d> is the Private Decryption exponent) which provides the difficulty of computing ϕ(N) without knowing the factorization of N. (and thus the difficulty of computing <d> arises in addition)
 
-This can only be solved by factorizing n (since every number is essentially a product of primes) and only the owner of the private key knows the factorization (primes p and q whose product yields n). This ‘factoring problem’ is the security point, with greater chances of the encryption to be secure for large values of n, or for large primes considered. The fact that only n is publicly disclosed, along with the given difficulty to factor large numbers (it is computationally infeasible to factor a large value of n to get d) gives the guarantee that no one else knows the factorization and the encrypted message, thus making it viable.
+This can only be solved by factorizing N (since every number is essentially a product of primes) and only the owner of the private key knows the factorization (primes p and q whose product yields N). This ‘factoring problem’ is the security point, with greater chances of the encryption to be secure for large values of N, or for large primes considered. The fact that only N is publicly disclosed, along with the given difficulty to factor large numbers (it is computationally infeasible to factor a large value of N to get <d>) gives the guarantee that no one else knows the factorization and the encrypted message, thus making it viable.
 
 Practical Implementation
 -------
 
-Implementations in a few languages can be found in this [directory](https://github.com/Anirban166/RSA-Cryptosystem/tree/master/Implementations). [Rosetta Code](https://rosettacode.org/wiki/RSA_code) is another source for implementations in multiple languages. These are for the sole purpose of educating oneself via reference, and must not be used in codebases where the implementations are critical. Given that there are multiple factors to be considered in modern-day cryptographic routines in order to establish a deeper level of security, its best to create specific implementations than to use the generalized ones or the toy implementations.
+Given that there are multiple factors to be considered in modern-day cryptographic routines in order to establish a deeper level of security, its best to create specific implementations than to use the generalized ones or the toy implementations.
 
-For general use, the length for the 2 primes considered (p and q) should be preferably around 2<sup>11</sup> bits (2048) or more, which results in values (n) greater than 2<sup>12</sup> (4096) bits upon their multiplication (p\*q). This ensures a tight encryption which is seemingly impossible to decrypt even when provided with massive computing resources (although completely possible to breach/bruteforce every combination if we were to leverage the power of supercomputers) for a large span of time. 
+For general use, the length for the 2 primes considered (p and q) should be preferably around 2<sup>11</sup> bits (2048) or more, which results in values (N) greater than 2<sup>12</sup> (4096) bits upon their multiplication (p\*q). This ensures a tight encryption which is seemingly impossible to decrypt even when provided with massive computing resources (although completely possible to breach/bruteforce every combination if we were to leverage the power of supercomputers) for a large span of time. 
 
 Hence, the RSA algorithm is quite feasible in general, apart from its primary downside of being much slower than symmetric cryptosystems. There are better alternatives (faster and more secure encryption schemes) such as elliptic curve cryptosystems, but then again, quantum computing could overcome that as well. Eventually nothing seems that secure, or has a counter-measure in the long run. 
 
 -------
-Summary addon for encryption/decryption: (22/06/19)
 
 :lock:Encryption
 -------
-| Input: RSA public key (n,e), plaintext m ∈ [0,n-1] | Output: Ciphertext c, (Compute c = m<sup>e</sup>(mod n), return c) |
+| Input: RSA public key (e, N), plaintext m ∈ [0, N-1] | Output: Ciphertext c, (Compute c = m<sup>e</sup>(mod N), return c) |
 |---|---|
 
 :unlock:Decryption
 -------
-| Input: RSA public key (n,e), RSA private key d, ciphertext c | Output: Plaintext m,  (Compute m = c<sup>d</sup>(mod n), return m) |
+| Input: RSA public key (e, N), RSA private key (d, N), ciphertext c | Output: Plaintext m,  (Compute m = c<sup>d</sup>(mod N), return m) |
 |---|---|
-
--------
