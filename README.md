@@ -72,5 +72,5 @@ Hence, the RSA algorithm is quite feasible in general, apart from its primary do
 
 :unlock:Decryption
 -------
-| Input: RSA public key (e, N), RSA private key (d, N), ciphertext c | Output: Plaintext m,  (Compute m = c<sup>d</sup>(mod N), return m) |
+| Input: RSA private key (d, N), ciphertext c | Output: Plaintext m,  (Compute m = c<sup>d</sup>(mod N), return m) |
 |---|---|
